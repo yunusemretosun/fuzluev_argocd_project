@@ -3,7 +3,7 @@ pipeline{
     
     environment{
         DOCKERHUB_USERNAME="yunusemretosun"
-        APP_NAME = "realestate"
+        APP_NAME = "realestate_case-backend"
         IMAGE_TAG = "${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}"+"/"+"${APP_NAME}"
         REGISTRY_CREDS="dockerhub"
@@ -32,7 +32,7 @@ pipeline{
             steps{
                 script{
                     sh "docker-compose -f ${DOCKER_COMPOSE_FILE} build"
-                    def name="realestate"
+                    def name="realestate_case-backend"
                     sh "docker tag ${name} ${IMAGE_NAME}:${BUILD_NUMBER}"
                 }
                     

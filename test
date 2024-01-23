@@ -1,0 +1,37 @@
+stage("Push Image"){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'dockerhub'){
+                    sh "docker push yunusemretosun/realestate:latest"  
+                    echo 'Push Image Completed'       
+                }
+            }
+            }
+        }
+        stage("Remove Backend Image"){
+            steps{
+                script{
+                    
+                    sh "docker rmi yunusemretosun/realestate:latest"
+                }
+            }
+        }
+
+        stage("push the changes to git"){
+            steps{
+                script{
+                    sh """
+                    git config --global user.name "yunusemretosun"
+                    git config --global user.email "sn.emretosun@gmail.com"
+                    git add ${PATH}. --force
+                    git commit -m "update"
+                    
+                    """
+                    withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                        
+                        git push "https://github.com/yunusemretosun/fuzluev_argocd_project.git" main 
+
+                    }
+                }
+            }
+        }

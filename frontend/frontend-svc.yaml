@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: fuzulev
+spec:
+  ports:
+  - nodePort: 31373
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: frontend
+  sessionAffinity: None
+  type: NodePort

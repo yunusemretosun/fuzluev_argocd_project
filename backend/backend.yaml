@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: real-estate-api
+  namespace: fuzulev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: real-estate-api
+  template:
+    metadata:
+      labels:
+        app: real-estate-api
+    spec:
+      containers:
+        - name: real-estate-api
+          image: yunusemretosun/realstate:v1
+          ports:
+          - containerPort: 80

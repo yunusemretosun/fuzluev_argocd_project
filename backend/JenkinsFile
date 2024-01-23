@@ -1,0 +1,94 @@
+pipeline{
+    agent any
+    
+    environment{
+        DOCKERHUB_USERNAME="yunusemretosun"
+        APP_NAME = "realestate"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        IMAGE_NAME = "${DOCKERHUB_USERNAME}"+"/"+"${APP_NAME}"
+        REGISTRY_CREDS="dockerhub"
+        DOCKERFILE="${pwd}/workspace/fuzulev_CI/backend/"
+        DOCKER_COMPOSE_FILE="/var/lib/jenkins/workspace/fuzulev_CI/backend/docker-compose.yml"
+
+    }
+
+    stages{
+        stage("Clean Workspace"){
+            steps{
+                cleanWs()
+            }
+        }
+        stage("Checkout SCM"){
+            steps{
+                script{
+                    git credentialsId: 'github',
+                    url: 'https://github.com/yunusemretosun/fuzluev_argocd_project.git',
+                    branch: 'main'
+                }
+                    
+            }
+        }
+        stage("Checkout Image"){
+            steps{
+                script{
+                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} build"
+                    def name="realestate"
+                    sh "docker tag ${name} ${IMAGE_NAME}:${BUILD_NUMBER}"
+                }
+                    
+            }
+        }
+        stage("Push Image"){
+            steps{
+                script{
+                        docker.withRegistry('',REGISTRY_CREDS){
+                            sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                        }
+                }
+                  
+            }
+        }
+        stage("Remove Backend Image"){
+            steps{
+                script{
+                    sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        stage("Update kubernetes deployment file"){
+            steps{
+                script{
+                    sh """
+                    cat ${DOCKERFILE}backend.yaml
+                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' ${DOCKERFILE}backend.yaml
+                    cat ${DOCKERFILE}backend.yaml
+                    """
+                }
+            }
+        }
+
+        stage("push the changes to git"){
+            steps{
+                script{
+                    sh """
+                    git config --global user.name "yunusemretosun"
+                    git config --global user.email "sn.emretosun@gmail.com"
+                    git add ${DOCKERFILE}backend.yaml
+                    git commit -m "update"
+                    
+                    """
+                    withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                        
+                       sh "git push https://github.com/yunusemretosun/fuzluev_argocd_project.git master" 
+
+                    }
+                }
+            }
+        }
+        
+
+        
+    }
+}
+
+

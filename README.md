@@ -36,8 +36,8 @@ admin
 admin
 
 **Önemli:**
-Backend imageini mevcut docker-compose ile hazırladım ancak uygulamanın dökümanındaki komutları uygulayamadım.(Update-Database -Context ApplicationDbContext ...)
-Bir migration işlemi gerçekleşiyorsa eğer bu yüzden gerçekleşmedi ve alttaki çıktıyı alıyorum.
+Backend image için mevcut docker-compose file'ı kullandım ancak uygulamanın dökümanındaki komutları uygulayamadım.(Update-Database -Context ApplicationDbContext ...)
+Bir migration işlemi gerçekleşiyorsa eğer bu yüzden gerçekleşmedi ve alttaki çıktıyı veriyor.
 http://34.18.58.126:30830/api/product?pageNumber=1&search=&pageSize=10&minPrice=0&maxPrice=0&propertyTypeEnum=2&propertyTypeEnum=3
 data: null
 

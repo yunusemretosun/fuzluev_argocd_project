@@ -67,7 +67,6 @@ pipeline{
                     sh """
                     cat ${DOCKERFILE}frontend.yaml
                     sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' ${DOCKERFILE}frontend.yaml
-                    sh "cat /full/path/to/frontend.yaml"
                     """
                 }
             }

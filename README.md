@@ -1,6 +1,7 @@
 Dosyalar
 
 Terraform --> main.tf
+
 Scipts --> scripts
 
 Yaml 

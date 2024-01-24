@@ -1,4 +1,4 @@
-Yaml,Scipt,Tf
+Dosyalar
 
 Terraform --> main.tf
 Scipts --> scripts

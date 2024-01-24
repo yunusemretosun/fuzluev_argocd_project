@@ -21,7 +21,7 @@ pipeline{
             steps{
                 script{
                     git credentialsId: 'github',
-                    url: 'https://github.com/yunusemretosun/fuzluev_argocd_project.git',
+                    url: 'https://github.com/yunusemretosun/fuzulev_argocd_project.git',
                     branch: 'main'
                 }
                     

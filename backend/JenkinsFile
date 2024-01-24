@@ -79,7 +79,7 @@ pipeline{
                     """
                     withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
                         
-                       sh "git push https://github.com/yunusemretosun/fuzluev_argocd_project.git master" 
+                       sh "git push https://github.com/yunusemretosun/fuzulev_argocd_project.git main" 
 
                     }
                 }

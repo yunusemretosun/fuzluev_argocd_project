@@ -90,7 +90,7 @@ resource "google_compute_firewall" "allow_nodeports" {
   
   allow {
     protocol = "tcp"
-    ports    = ["80", "8080", "1000-2000", "22", "30000-40000"]
+    ports    = ["80", "8080", "1000-4000", "22", "30000-45000"]
   }
  
   source_ranges = ["0.0.0.0/0"]  

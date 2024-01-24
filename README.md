@@ -5,8 +5,11 @@ Terraform --> main.tf
 Scipts --> scripts
 
 Yaml 
+
 backend/
+
 frontend/
+
 frontend/deployment
 
 Erişimler

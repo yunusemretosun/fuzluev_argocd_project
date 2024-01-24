@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: real-estate-api
-          image: yunusemretosun/realestate_case-backend:141
+          image: yunusemretosun/realestate_case-backend:143
           ports:
           - containerPort: 80
